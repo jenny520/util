@@ -1,0 +1,24 @@
+{
+  "name": "util",
+  "version": "1.0.0",
+  "description": "公用方法",
+  "main": "util.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jenny520/util.git"
+  },
+  "keywords": [],
+  "author": "zhoumeiyan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jenny520/util/issues"
+  },
+  "homepage": "https://github.com/jenny520/util#readme",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "qs": "^6.5.1"
+  }
+}
