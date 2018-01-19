@@ -19,5 +19,25 @@ const EventUtil = {
         } else {
             element[`on${type}`] = null
         }
+    },
+    getEvent(event) {
+        return event ? event : window.event
+    },
+    getTarget(event) {
+        return event.target || event.srcElement
+    },
+    preventDefault(event) {
+        if (event.preventDefault) {
+            event.preventDefault()
+        } else {
+            event.returnValue = false
+        }
+    },
+    stopPropagation(event) {
+        if (event.stopPropagation) {
+            event.stopPropagation()
+        } else {
+            event.cancelBubble = true
+        }
     }
 }
