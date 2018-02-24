@@ -117,3 +117,7 @@ export function removeStorage(key) {
         store.storage.removeItem(item)
     }) : store.storage.removeItem(key)
 }
+
+export function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - mix + 1) + min)
+}
