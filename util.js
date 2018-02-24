@@ -76,6 +76,16 @@ export function prefixStyle(style) {
     return vendor + style.charAt(0).toUpperCase() + style.substr(1)
 }
 
+export function addQueryStringArg(url, name, value) {
+    if (url.indexOf('?') === -1) {
+        url += '?'
+    } else {
+        url += '&'
+    }
+    url += encodeURIComponent(name) + '=' + encodeURIComponent(value)
+    return url
+}
+
 export function getquerystring (name, url) {
     let reg = new RegExp(`(^|&)${name}=([^&]*)($|&)`)
     let r = url.match(reg)
