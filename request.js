@@ -57,5 +57,5 @@ const request = (method, url, headers, body) => {
         .catch((err) => {
             return Promise.reject(err)
         })
-}
+};
 export default request
