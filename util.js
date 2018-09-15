@@ -121,3 +121,26 @@ export function removeStorage(key) {
 export function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - mix + 1) + min)
 }
+
+export function debounce(fn, wait) {
+    let timer;
+    return function(...args) {
+        if (timer) {
+            clearTimeout(timer)
+        }
+        timer = setTimeout(() => {
+          fn.apply(this, args)
+        }, wait)
+    }
+}
+
+export function throttle(fn, gapTime) {
+  let _lastTime;
+  return function() {
+    let _nowTimer = + new Date();
+    if ((_nowTimer - _lastTime) > gapTime || !_lastTime) {
+      fn();
+      _lastTime = _nowTimer
+    }
+  }
+}
