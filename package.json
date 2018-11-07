@@ -22,5 +22,8 @@
     "colors": "^1.1.2",
     "js-base64": "^2.4.3",
     "qs": "^6.5.1"
+  },
+  "devDependencies": {
+    "path": "^0.12.7"
   }
 }
