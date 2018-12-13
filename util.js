@@ -139,7 +139,7 @@ export function throttle(fn, gapTime) {
   return function() {
     let _nowTimer = + new Date();
     if ((_nowTimer - _lastTime) > gapTime || !_lastTime) {
-      fn();
+      fn.apply(this, arguments);
       _lastTime = _nowTimer
     }
   }
