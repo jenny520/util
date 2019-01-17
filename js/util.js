@@ -89,7 +89,7 @@ export function addQueryStringArg(url, name, value) {
 export function getquerystring (name, url) {
     let reg = new RegExp(`(^|&)${name}=([^&]*)($|&)`)
     let r = url.match(reg)
-    if (!r) {
+    if (r) {
         return decodeURIComponent(r[2])
     }
 }
@@ -143,4 +143,64 @@ export function throttle(fn, gapTime) {
       _lastTime = _nowTimer
     }
   }
+}
+
+export const emptyObject = Object.freeze({})
+
+export function isUndef(v) {
+  return v === undefined || v === null
+}
+
+export function isDef() {
+  return v !== undefined && v !== null
+}
+
+export function isPrimitive(value) {
+  return (
+    typeof value === 'string' ||
+    typeof value === 'number' ||
+    typeof value === 'symbol' ||
+    typeof value === 'boolean'
+  )
+}
+
+/**
+ * Get the raw type string of a value e.g. [object Object]
+ */
+const _toString = Object.prototype.toString
+
+/**
+ * Strict object type check. Only returns true
+ * for plain JavaScript objects.
+ */
+export function isPlainObject(obj) {
+  return _toString.call(obj) === '[object Object]'
+}
+
+export function isRegExp(v) {
+  return _toString.call(v) === '[object RegExp]'
+}
+
+/**
+ * Check whether the object has the property
+ *
+ */
+const hasOwnProperty = Object.prototype.hasOwnProperty
+export function hasOwn(obj, key) {
+  return hasOwnProperty.call(obj, key)
+}
+
+/**
+ * Make a map and return a function for checking if a key
+ * is in that map
+ */
+export function makeMap(str, expectToLowerCase) {
+  const map = Object.create(null)
+  const list = str.split(',')
+  list.forEach((item) => {
+    map[item] = true
+  })
+  return expectToLowerCase
+    ? (val) => map[val.toLowerCase()]
+    : (val) => map[val]
 }
