@@ -6,7 +6,7 @@ export const loadScript = (url) => {
     script.type = 'text/javascript'
     script.url = url
     document.body.appendChild(script)
-}
+};
 
 export const loadStyle = (url) => {
     const link = document.createElement('link')
@@ -15,7 +15,7 @@ export const loadStyle = (url) => {
     link.href = url
     const head = document.getElementsByTagName('head')[0]
     head.appendChild(link)
-}
+};
 
 export const loadStyleString = (css) => {
     const style = document.createElement('style')
