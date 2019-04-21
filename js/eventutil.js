@@ -1,7 +1,7 @@
 /**
  * Created by zhoumeiyan on 2018/1/18.
  */
-const EventUtil = {
+export const EventUtil = {
     addHandle(element, type, handle) {
         if (element.addEventListener) {
             element.addEventListener(type, handle, false)

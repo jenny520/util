@@ -69,3 +69,70 @@ function highestFrequency (array) {
 }
 
 
+/**
+ * 冒泡排序
+ * @param {array} 需要排序的数组
+ * @returns {array} 返回有序的数组
+ */
+
+function bubbleSort (arr) {
+  const tempArr = arr.slice();
+  const len = tempArr.length;
+  for(let i = 0; i < len; i++) {
+    for (let j = 0; j < len - 1 - i; j++) {
+      if (tempArr[j] > tempArr[j + 1]) {
+        let temp = tempArr[j];
+        tempArr[j] = tempArr[j + 1];
+        tempArr[j + 1] =temp;
+      }
+    }
+  }
+  return tempArr;
+}
+
+/**
+ * 优化后的冒泡排序（获取每次排序中最大值位置和最小值，从而使排序躺数减少一半）
+ */
+
+function bubbleSort2 (arr) {
+  const tempArr = arr.slice();
+  let low = 0;
+  let height = tempArr.length - 1;
+  while (low < height) {
+    for (let i = low; i < height; i++) {
+      if (tempArr[i] > tempArr[i + 1]) {
+        let temp = tempArr[i];
+        tempArr[i] = tempArr[i + 1];
+        tempArr[i + 1] = temp;
+      }
+    }
+    height--;
+    for (let j = height; j > low; j--) {
+      if (tempArr[j] < tempArr[j--]) {
+        let temp = tempArr[j];
+        tempArr[j] = tempArr[j - 1];
+        tempArr[j - 1] = temp;
+      }
+    }
+    low++;
+  }
+  return tempArr;
+}
+
+/**
+ * 简单的数组去重的一个实现
+ * @param array
+ * @return {Array}
+ */
+function unique1(array){
+  var tempArr = []; //一个新的临时数组
+  //遍历当前数组
+  for(var i = 0; i < array.length; i++){
+    //如果当前数组的第i已经保存进了临时数组，那么跳过，
+    //否则把当前项push到临时数组里面
+    if (!tempArr.includes(array[i])) {
+      tempArr.push(array[i]);
+    }
+  }
+  return tempArr;
+}
