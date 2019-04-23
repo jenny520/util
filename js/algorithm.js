@@ -125,14 +125,36 @@ function bubbleSort2 (arr) {
  * @return {Array}
  */
 function unique1(array){
-  var tempArr = []; //一个新的临时数组
+  let tempArr = []; //一个新的临时数组
   //遍历当前数组
-  for(var i = 0; i < array.length; i++){
+  for(let i = 0; i < array.length; i++){
     //如果当前数组的第i已经保存进了临时数组，那么跳过，
     //否则把当前项push到临时数组里面
     if (!tempArr.includes(array[i])) {
       tempArr.push(array[i]);
     }
+  }
+  return tempArr;
+}
+
+/**
+ * 简单的选择排序，时间复杂度为O(n^2)
+ * @param array
+ * @return {Array}
+ */
+function selectionSort(array) {
+  let tempArr = array.slice();
+  const len = tempArr.length;
+  let minIndex = 0, temp;
+  for (let i = 0; i < len - 1; i++) {
+    for (let j = i + 1; j < len; j++) {
+      if (tempArr[j] < tempArr[minIndex]) {
+        minIndex = j;
+      }
+    }
+    temp = tempArr[minIndex];
+    tempArr[minIndex] = tempArr[i];
+    tempArr[i] = temp;
   }
   return tempArr;
 }
