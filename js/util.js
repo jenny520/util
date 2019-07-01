@@ -214,3 +214,10 @@ export function toArray(list, start) {
   }
   return ret;
 }
+
+/**
+ * 页面是否支持webp
+ */
+export function supportWebp() {
+  return document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') === 0;
+}
