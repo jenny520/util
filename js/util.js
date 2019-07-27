@@ -178,6 +178,9 @@ export function isRegExp(v) {
   return _toString.call(v) === '[object RegExp]'
 }
 
+export function isObject(obj) {
+  return obj !== null && typeof obj === 'object';
+}
 /**
  * Check whether the object has the property
  *
@@ -220,4 +223,32 @@ export function toArray(list, start) {
  */
 export function supportWebp() {
   return document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') === 0;
+}
+
+/**
+ * 进行数据代理
+ */
+const sharedPropertyDefinition = {
+  enumerable: true,
+  configurable: true,
+  get: null,
+  set: null,
+}
+export function proxy(target, sourceKey, key) {
+  sharedPropertyDefinition.get = function proxyGetter() {
+    return this[sourceKey][key];
+  };
+  sharedPropertyDefinition.set = function proxySetter(val) {
+    this[sourceKey][key] = val;
+  };
+  return Object.defineProperty(target, key, sharedPropertyDefinition);
+}
+
+export function remove(arr, item) {
+  if (arr.length) {
+    const index = arr.indexOf(item);
+    if (index > -1) {
+      arr.splice(index, 1)
+    }
+  }
 }
