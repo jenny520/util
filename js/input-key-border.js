@@ -14,7 +14,7 @@
  */
 
 function fixedAndroidKeyBorde() {
-  let bodyHeight = document.documentElement.clientHeight;
+  let bodyHeight = document.documentElement.clientHeight
   window.onresize = () => {
     if (/android/i.test(navigator.userAgent.toLocaleLowerCase())) {
       if (bodyHeight > document.documentElement.clientHeight) {

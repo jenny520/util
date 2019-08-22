@@ -1,12 +1,25 @@
-import { pushTarget, popTarget } from './dep.js'
+import Dep, { pushTarget, popTarget } from './dep.js'
+import { SimpleSet } from '../../types/simpleSet'
+import {Function} from "estree";
 let uid = 0
-class Watcher {
-  constructor(vm, expOrFn, cb, options, isRenderWatcher = false) {
+export default class Watcher {
+  vm: any;
+  cb: Function;
+  id: number;
+  active: boolean;
+  deps: Array<Dep>;
+  newDeps: Array<Dep>;
+  depIds: SimpleSet;
+  newDepIds: SimpleSet;
+  expression: string;
+  getter: Function;
+  value: any;
+  constructor(vm:any, expOrFn: string | Function, cb: Function, options?:Object, isRenderWatcher?:boolean) {
     this.vm = vm
     if (isRenderWatcher) {
       vm._watcher = true
     }
-    wm._watchers.push(this)
+    // this.wm._watchers.push(this)
     this.cb = cb
     this.id = ++uid
     this.active = true
@@ -26,12 +39,14 @@ class Watcher {
       vm = this.vm
     try {
       value = this.getter.call(vm, vm)
-    } catch (err) {
-      popTarget(this)
+    } finally {
+      popTarget()
+      this.cleanupDeps()
     }
     return value
   }
-  addDep(dep) {
+  addDep(dep: Dep) {
+    console.log(dep)
     const id = dep.id
     if (!this.newDepIds.has(id)) {
       this.newDepIds.add(id)

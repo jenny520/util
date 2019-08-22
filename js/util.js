@@ -2,29 +2,29 @@
  * Created by zhoumeiyan on 2018/1/16.
  */
 let store = {
-    storage: window.localStorage,
-    session: {
-        storage: window.sessionStorage
-    }
+  storage: window.localStorage,
+  session: {
+    storage: window.sessionStorage
+  }
 }
 export function getElementLeft(el) {
-    let actualLeft = el.offsetLeft
-    let current = el.offsetParent
-    while (current !== null) {
-        actualLeft += current.offsetLeft
-        current = current.offsetParent
-    }
-    return actualLeft
+  let actualLeft = el.offsetLeft
+  let current = el.offsetParent
+  while (current !== null) {
+    actualLeft += current.offsetLeft
+    current = current.offsetParent
+  }
+  return actualLeft
 }
 
 export function getElementTop(el) {
-    let actualTop = el.offsetTop
-    let current = el.offsetParent
-    while (current !== null) {
-        actualTop += current.offsetTop
-        current = current.offsetParent
-    }
-    return actualTop
+  let actualTop = el.offsetTop
+  let current = el.offsetParent
+  while (current !== null) {
+    actualTop += current.offsetTop
+    current = current.offsetParent
+  }
+  return actualTop
 }
 
 export function hasClass(el, className) {
@@ -39,104 +39,106 @@ export function addClass(el, className) {
 }
 
 export function getData(el, name, val) {
-    const prefix = 'data-'
-    if (val) {
-        return el.setAttribute(`${prefix}${name}`, val)
-    }
-    return el.getAttribute(`${prefix}${name}`)
+  const prefix = 'data-'
+  if (val) {
+    return el.setAttribute(`${prefix}${name}`, val)
+  }
+  return el.getAttribute(`${prefix}${name}`)
 }
 
 let elementStyle = document.createElement('div').style
 let vendor = (() => {
-    let transformNames = {
-        webkit: 'webkitTransform',
-        Moz: 'MozTransform',
-        O: 'OTransform',
-        ms: 'msTransform',
-        standard: 'transform'
+  let transformNames = {
+    webkit: 'webkitTransform',
+    Moz: 'MozTransform',
+    O: 'OTransform',
+    ms: 'msTransform',
+    standard: 'transform'
+  }
+  for (let key in transformNames) {
+    if (elementStyle[transformNames[key]] !== undefined) {
+      return key
     }
-    for (let key in transformNames) {
-        if (elementStyle[transformNames[key]] !== undefined) {
-            return key
-        }
-    }
-    return false
+  }
+  return false
 })()
 
 export function prefixStyle(style) {
-    if (!vendor) {
-        return false
-    }
-    if (vendor === 'standard') {
-        return style
-    }
-    return vendor + style.charAt(0).toUpperCase() + style.substr(1)
+  if (!vendor) {
+    return false
+  }
+  if (vendor === 'standard') {
+    return style
+  }
+  return vendor + style.charAt(0).toUpperCase() + style.substr(1)
 }
 
 export function addQueryStringArg(url, name, value) {
-    if (url.indexOf('?') === -1) {
-        url += '?'
-    } else {
-        url += '&'
-    }
-    url += encodeURIComponent(name) + '=' + encodeURIComponent(value)
-    return url
+  if (url.indexOf('?') === -1) {
+    url += '?'
+  } else {
+    url += '&'
+  }
+  url += encodeURIComponent(name) + '=' + encodeURIComponent(value)
+  return url
 }
 
-export function getquerystring (name, url) {
-    let reg = new RegExp(`(^|&)${name}=([^&]*)($|&)`)
-    let r = url.match(reg)
-    if (r) {
-        return decodeURIComponent(r[2])
-    }
+export function getquerystring(name, url) {
+  let reg = new RegExp(`(^|&)${name}=([^&]*)($|&)`)
+  let r = url.match(reg)
+  if (r) {
+    return decodeURIComponent(r[2])
+  }
 }
 
 export function setStorage(key, val) {
-    if (!val) {
-        return
-    }
-    if (val && (typeof val === 'object')) {
-        return store.storage.setItem(key, JSON.stringify(val))
-    }
-    return store.storage.setItem(key, val)
+  if (!val) {
+    return
+  }
+  if (val && typeof val === 'object') {
+    return store.storage.setItem(key, JSON.stringify(val))
+  }
+  return store.storage.setItem(key, val)
 }
 
 export function getStorage(key) {
-    let val = store.storage.getItem(key)
-    if (val === undefined) {
-        return
-    }
-    return JSON.parse(val)
+  let val = store.storage.getItem(key)
+  if (val === undefined) {
+    return
+  }
+  return JSON.parse(val)
 }
 
 export function removeStorage(key) {
-    return Array.isArray(key) ? key.forEach((item) => {
+  return Array.isArray(key)
+    ? key.forEach(item => {
         store.storage.removeItem(item)
-    }) : store.storage.removeItem(key)
+      })
+    : store.storage.removeItem(key)
 }
 
 export function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - mix + 1) + min)
+  return Math.floor(Math.random() * (max - mix + 1) + min)
 }
 
 export function debounce(fn, wait) {
-    let timer;
-    return function(...args) {
-        if (timer) {
-            clearTimeout(timer)
-        }
-        timer = setTimeout(() => {
-          fn.apply(this, args)
-        }, wait)
+  let timer
+  return function(...args) {
+    if (timer) {
+      clearTimeout(timer)
     }
+    timer = setTimeout(() => {
+      fn.apply(this, args)
+    }, wait)
+  }
 }
 
 export function throttle(fn, gapTime) {
-  let _lastTime;
+  let _lastTime
   return function() {
-    let _nowTimer = + new Date();
-    if ((_nowTimer - _lastTime) > gapTime || !_lastTime) {
-      fn.apply(this, arguments);
+    let _nowTimer = +new Date()
+    if (_nowTimer - _lastTime > gapTime || !_lastTime) {
+      fn.apply(this, arguments)
       _lastTime = _nowTimer
     }
   }
@@ -179,7 +181,7 @@ export function isRegExp(v) {
 }
 
 export function isObject(obj) {
-  return obj !== null && typeof obj === 'object';
+  return obj !== null && typeof obj === 'object'
 }
 /**
  * Check whether the object has the property
@@ -197,32 +199,35 @@ export function hasOwn(obj, key) {
 export function makeMap(str, expectToLowerCase) {
   const map = Object.create(null)
   const list = str.split(',')
-  list.forEach((item) => {
+  list.forEach(item => {
     map[item] = true
   })
-  return expectToLowerCase
-    ? (val) => map[val.toLowerCase()]
-    : (val) => map[val]
+  return expectToLowerCase ? val => map[val.toLowerCase()] : val => map[val]
 }
 
 /**
  * Convert an Array-like object to a real Array.
  */
 export function toArray(list, start) {
-  start = start || 0;
-  let i = list.length - start;
-  const ret = new Array(i);
-  while(i--) {
-    ret[i] = list[i + start];
+  start = start || 0
+  let i = list.length - start
+  const ret = new Array(i)
+  while (i--) {
+    ret[i] = list[i + start]
   }
-  return ret;
+  return ret
 }
 
 /**
  * 页面是否支持webp
  */
 export function supportWebp() {
-  return document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') === 0;
+  return (
+    document
+      .createElement('canvas')
+      .toDataURL('image/webp')
+      .indexOf('data:image/webp') === 0
+  )
 }
 
 /**
@@ -232,21 +237,21 @@ const sharedPropertyDefinition = {
   enumerable: true,
   configurable: true,
   get: null,
-  set: null,
+  set: null
 }
 export function proxy(target, sourceKey, key) {
   sharedPropertyDefinition.get = function proxyGetter() {
-    return this[sourceKey][key];
-  };
+    return this[sourceKey][key]
+  }
   sharedPropertyDefinition.set = function proxySetter(val) {
-    this[sourceKey][key] = val;
-  };
-  return Object.defineProperty(target, key, sharedPropertyDefinition);
+    this[sourceKey][key] = val
+  }
+  return Object.defineProperty(target, key, sharedPropertyDefinition)
 }
 
 export function remove(arr, item) {
   if (arr.length) {
-    const index = arr.indexOf(item);
+    const index = arr.indexOf(item)
     if (index > -1) {
       arr.splice(index, 1)
     }

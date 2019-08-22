@@ -1,9 +1,9 @@
-let uid = 0;
-export default class Dep{
-  static target;
+let uid = 0
+export default class Dep {
+  static target
   constructor() {
-    this.subs = [];
-    this.id = uid++;
+    this.subs = []
+    this.id = uid++
   }
   // 添加一个观察者对象
   addSub(sub) {
@@ -21,29 +21,29 @@ export default class Dep{
   }
   // 调用依赖收集的Watcher更新
   notify() {
-    const subs = this.subs.slice();
-    for(let i = 0; i < subs.length; i++) {
+    const subs = this.subs.slice()
+    for (let i = 0; i < subs.length; i++) {
       subs[i].update()
     }
   }
 }
 
-Dep.target = null;
-const targetStack = null;
+Dep.target = null
+const targetStack = null
 function pushTarget(target) {
-  targetStack.push(target);
-  Dep.target = target;
+  targetStack.push(target)
+  Dep.target = target
 }
 
 function popTarget(target) {
-  targetStack.pop();
-  Dep.target = targetStack[targetStack.length - 1];
+  targetStack.pop()
+  Dep.target = targetStack[targetStack.length - 1]
 }
 function remove(array, item) {
   if (array.length) {
-    const index = array.indexOf(item);
+    const index = array.indexOf(item)
     if (index > -1) {
-      return array.splice(index, 1);
+      return array.splice(index, 1)
     }
   }
 }

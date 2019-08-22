@@ -4,7 +4,9 @@
   "description": "公用方法",
   "main": "util.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "construct:dev": "scripty",
+    "dev": "rm -rf dist cross-env NODE_ENV=development rollup -c  rollup.config.js"
   },
   "repository": {
     "type": "git",
@@ -16,14 +18,37 @@
   "bugs": {
     "url": "https://github.com/jenny520/util/issues"
   },
+  "scripty": {
+    "silent": true
+  },
   "homepage": "https://github.com/jenny520/util#readme",
   "dependencies": {
     "axios": "^0.17.1",
     "colors": "^1.1.2",
+    "cross-env": "^5.2.0",
     "js-base64": "^2.4.3",
     "qs": "^6.5.1"
   },
   "devDependencies": {
-    "path": "^0.12.7"
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "path": "^0.12.7",
+    "prettier": "^1.18.2",
+    "rollup": "^1.18.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-uglify": "^6.0.2",
+    "scripty": "^1.9.1",
+    "tslib": "^1.10.0",
+    "typescript": "^3.5.3"
   }
 }
