@@ -25,3 +25,10 @@ export function remove (arr: Array<any>, item: any): Array<any> | void {
     }
   }
 }
+
+export function noop(a?: any, b?:any, c?: any) {}
+
+export function isValidArrayIndex(val:any):boolean {
+  const n = parseFloat(String(val));
+  return n >= 0 && Math.floor(n) === n && isFinite(val);
+}

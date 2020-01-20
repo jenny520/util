@@ -1,6 +1,13 @@
 import { arrayMethods } from "./array.js";
 import Dep from './dep.js';
-import { def, hasProto, isObject, hasOwn, isPlainObject } from '../utils/index';
+import {
+  def,
+  hasProto,
+  isObject,
+  hasOwn,
+  isPlainObject,
+  isValidArrayIndex,
+} from '../utils/index';
 
 // 获得arrayMethods对象上所有属性的数组
 const arrayKeys = Object.hasOwnProperty(arrayMethods)
@@ -64,7 +71,7 @@ export function observe (value: any, asRootData?:boolean): Observer | void  {
   return ob;
 }
 
-function defineReactive(
+export function defineReactive(
   obj: Object,
   key: string,
   val: any) {
@@ -111,6 +118,26 @@ function defineReactive(
       dep.notify();
     }
   })
+}
+
+export function set(target: Array<any> | object, key: any, val: any):any {
+  if (Array.isArray(target) && isValidArrayIndex(key)) {
+    target.length = Math.max(target.length, key);
+    target.splice(key, 1, val);
+    return val;
+  }
+  if (key in target && !(key in Object.prototype)) {
+    target[key] = val;
+    return val;
+  }
+  const ob = (target: any).__ob__
+  if (!ob) {
+    target[key] = val;
+    return val;
+  }
+  defineReactive(target, key, val);
+  ob.dep.notify();
+  return val;
 }
 
 function dependArray(value:Array<any>) {

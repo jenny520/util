@@ -1,6 +1,8 @@
 import Dep, { pushTarget, popTarget } from './dep.js'
 import { SimpleSet } from '../../types/simpleSet'
+import { queueWatcher } from './schedule'
 import {Function} from "estree";
+import { remove } from '../utils/util';
 let uid = 0
 export default class Watcher {
   vm: any;
@@ -14,12 +16,19 @@ export default class Watcher {
   expression: string;
   getter: Function;
   value: any;
+  dirty: boolean;
+  deep: boolean;
   constructor(vm:any, expOrFn: string | Function, cb: Function, options?:Object, isRenderWatcher?:boolean) {
     this.vm = vm
     if (isRenderWatcher) {
       vm._watcher = true
     }
     // this.wm._watchers.push(this)
+    if (options) {
+      this.deep = !!options.deep
+    } else {
+      this.deep = this.user = this.lazy = this.sync = false;
+    }
     this.cb = cb
     this.id = ++uid
     this.active = true
@@ -40,6 +49,9 @@ export default class Watcher {
     try {
       value = this.getter.call(vm, vm)
     } finally {
+      if (this.deep) {
+
+      }
       popTarget()
       this.cleanupDeps()
     }
@@ -74,9 +86,26 @@ export default class Watcher {
     this.newDeps = tmp
     this.newDeps.length = 0
   }
+  evaluate() {
+    this.value = this.get();
+    this.dirty = false;
+  }
+  teardown() {
+    if (this.active) {
+      if (!this.vm._isBeingDestoryed) {
+        remove(this.vm._watchers, this);
+      }
+      let i = this.deps.length;
+      while (i--) {
+        this.deps[i].removeSub(this)
+      }
+      this.active = false;
+    }
+  }
   // 更新
   update() {
-    this.run()
+    queueWatcher(this);
+    // this.run()
   }
   // 更新视图
   run() {

@@ -3,7 +3,7 @@ import { remove } from '../utils/index'
 let uid = 0;
 export default class Dep{
   static target?:Watcher;
-  id: Number;
+  id: number;
   subs: Array<Watcher>;
 
   constructor() {
