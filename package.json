@@ -1,6 +1,6 @@
 {
   "name": "zym-utils",
-  "version": "1.0.2-3",
+  "version": "1.0.2",
   "description": "公用方法",
   "main": "util.js",
   "scripts": {
@@ -33,8 +33,7 @@
     "colors": "^1.1.2",
     "cross-env": "^5.2.0",
     "js-base64": "^2.4.3",
-    "qs": "^6.5.1",
-    "semver": "^7.1.1"
+    "qs": "^6.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
