@@ -1,6 +1,6 @@
 {
   "name": "zym-utils",
-  "version": "1.0.0",
+  "version": "1.0.1-0",
   "description": "公用方法",
   "main": "util.js",
   "scripts": {
