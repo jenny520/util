@@ -55,25 +55,55 @@
     <!-- 添加 favicon icon -->
     <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
     <title>Title</title>
+    <style type="text/css">
+      .bind-event {
+        display: block;
+        width: 100px;
+        height: 50px;
+        line-height: 50px;
+        background: #f50;
+        color: #fff;
+        outline: none;
+        border: none;
+      }
+    </style>
 </head>
 <body>
+<button class="bind-event">按钮</button>
 <script src="./dist/index.js"></script>
 <script>
-  let data = {
-    name:'zane',
-    blog:'https://blog.seosiwei.com/',
-    hobby:['basketball','football'],
-    list:[
-      {name:'zhangsan'},
-      {name:'lishi'}
-    ]
-  };
-  let getUpdates = (vm)=>{
-    console.log('默认调用一次，进行依赖收集')
-  };
-  zmyUtils.observe(data)
-  new zmyUtils.Watcher(this, () => data.name, getUpdates);
-  data.name = 12;
+  // let data = {
+  //   name:'zane',
+  //   blog:'https://blog.seosiwei.com/',
+  //   hobby:['basketball','football'],
+  //   list:[
+  //     {name:'zhangsan'},
+  //     {name:'lishi'}
+  //   ]
+  // };
+  // let getUpdates = (vm)=>{
+  //   console.log('默认调用一次，进行依赖收集')
+  // };
+  // zmyUtils.observe(data)
+  // new zmyUtils.Watcher(this, () => data.name, getUpdates);
+  // data.name = 12;
+  window.onload = function () {
+    const eventBus = zmyUtils.eventBus;
+    var bindEventEl = document.querySelector('.bind-event');
+    bindEventEl.addEventListener('click', function () {
+      eventBus.on('click', function () {
+        console.log('绑定click事件')
+      })
+    })
+    bindEventEl.addEventListener('dblclick', function() {
+      eventBus.emit('click', )
+    })
+    // bindEventEl.click = function () {
+    //   eventBus.on('click', function () {
+    //     console.log(5555)
+    //   })
+    // }
+  }
 </script>
 
 </body>

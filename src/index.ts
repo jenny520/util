@@ -6,3 +6,4 @@
 //   Watcher
 // }
 export * from './utils/index'
+export * from './Event/index'
